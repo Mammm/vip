@@ -14,3 +14,6 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->get('test/set', 'TestController@index');
+$router->get('test/cache', 'TestController@getRedisCache');

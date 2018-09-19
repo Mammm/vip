@@ -8,13 +8,13 @@ use Illuminate\Support\Facades\Cache;
 
 class WeChat
 {
-    protected $appId;
+    protected $appID;
 
     protected $appSecret;
 
-    public function setAppId($appId)
+    public function setAppID($appID)
     {
-        $this->appId = $appId;
+        $this->appID = $appID;
     }
 
     public function setAppSecret($appSecret)
@@ -29,7 +29,7 @@ class WeChat
         if ($token)
             return $token;
 
-        $response = API::accessToken($this->appId, $this->appSecret);
+        $response = API::accessToken($this->appID, $this->appSecret);
 
         if (!$response)
             return false;
@@ -49,6 +49,6 @@ class WeChat
 
     private function accessTokenCacheKey()
     {
-        return md5($this->appId.'access-token-key');
+        return md5($this->appID.'access-token-key');
     }
 }

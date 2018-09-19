@@ -24,26 +24,48 @@ class API
         return $apiResponse;
     }
 
-    static public function accessToken($appId, $appSecret)
+    static public function accessToken($appID, $appSecret)
     {
         $params = [
             'grant_type' => 'client_credential',
-            'appid' => $appId,
+            'appid' => $appID,
             'secret' => $appSecret
         ];
 
         return self::response(httpRequest(URL::ACCESS_TOKEN, $params, 'GET'));
     }
 
-    static public function oauth2AccessToken($appId, $appSecret, $code)
+    static public function oauth2AccessToken($appID, $appSecret, $code)
     {
         $params = [
             'code' => $code,
-            'appid' => $appId,
+            'appid' => $appID,
             'secret' => $appSecret,
             'grant_type' => 'authorization_code'
         ];
 
         return self::response(httpRequest(URL::OAUTH2_ACCESS_TOKEN, $params, 'GET'));
+    }
+
+    static public function oauth2RefreshToken($appID, $refreshToken)
+    {
+        $params = [
+            'appid' => $appID,
+            'grant_type' => 'refresh_token',
+            'refresh_token' => $refreshToken
+        ];
+
+        return self::response(httpRequest(URL::OAUTH2_REFRESH_TOKEN, $params, 'GET'));
+    }
+
+    static public function userInfo($openID, $token)
+    {
+        $params = [
+            'openid' => $openID,
+            'access_token' => $token,
+            'lang' => 'zh_CN'
+        ];
+
+        return self::response(httpRequest(URL::USER_INFO, $params, 'GET'));
     }
 }

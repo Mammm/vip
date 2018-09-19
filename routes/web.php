@@ -15,5 +15,12 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+Route::group(['prefix' => 'api', 'namespace' => 'Api'], function(){
+    Route::any('router', 'RouterController@index');  // API 入口
+});
 $router->get('test/set', 'TestController@index');
 $router->get('test/cache', 'TestController@getRedisCache');
+
+$router->group(['namespace' => 'VIP'], function () use ($router) {
+
+});

@@ -13,8 +13,9 @@ class TestController extends Controller
 
     public function index(Request $request)
     {
+
         Cache::add('test.redis.store', 'true', 10);
-        return 1;
+        return base_path('app/Http/Controllers');
     }
 
     public function getRedisCache()

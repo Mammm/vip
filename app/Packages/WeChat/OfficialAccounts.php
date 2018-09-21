@@ -126,8 +126,20 @@ class OfficialAccounts extends WeChat
         return md5($openID.'-Oauth2RefreshToken');
     }
 
-    public function simpleUserInfo($openID, $token)
+    public function oauth2UserInfo($openID, $token)
     {
+        $response = API::oauth2UserInfo($openID, $token);
+
+        if (!$response)
+            return false;
+
+        return $response;
+    }
+
+    public function userInfo($openID)
+    {
+        $token = $this->accessToken();
+
         $response = API::userInfo($openID, $token);
 
         if (!$response)

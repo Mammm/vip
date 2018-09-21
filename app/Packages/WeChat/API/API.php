@@ -58,6 +58,17 @@ class API
         return self::response(httpRequest(URL::OAUTH2_REFRESH_TOKEN, $params, 'GET'));
     }
 
+    static public function oauth2UserInfo($openID, $token)
+    {
+        $params = [
+            'openid' => $openID,
+            'access_token' => $token,
+            'lang' => 'zh_CN'
+        ];
+
+        return self::response(httpRequest(URL::OAUTH2_USER_INFO, $params, 'GET'));
+    }
+
     static public function userInfo($openID, $token)
     {
         $params = [
@@ -66,6 +77,6 @@ class API
             'lang' => 'zh_CN'
         ];
 
-        return self::response(httpRequest(URL::USER_INFO, $params, 'GET'));
+        return self::response(httpRequest(URL::OA_USER_INFO, $params, 'GET'));
     }
 }

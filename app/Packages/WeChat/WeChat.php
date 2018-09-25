@@ -15,11 +15,15 @@ class WeChat
     public function setAppID($appID)
     {
         $this->appID = $appID;
+
+        return $this;
     }
 
     public function setAppSecret($appSecret)
     {
         $this->appSecret = $appSecret;
+
+        return $this;
     }
 
     public function accessToken()

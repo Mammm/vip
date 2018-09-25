@@ -37,3 +37,10 @@ if (! function_exists('httpRequest')) {
         return $data;
     }
 }
+
+if (! function_exists('jsonResponse')) {
+    function jsonResponse($errorCode, $errorMessage, $data)
+    {
+
+    }
+}

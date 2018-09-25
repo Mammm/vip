@@ -12,6 +12,5 @@ namespace App\Packages\Response\Error;
 class Code
 {
     const SUCCESS = 1;
-
     const FAILED = 2;
 }

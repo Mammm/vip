@@ -63,9 +63,9 @@ $app->singleton(
 //    App\Http\Middleware\ExampleMiddleware::class
 // ]);
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+ $app->routeMiddleware([
+     'token' => \App\Http\Middleware\TokenMiddleware::class
+ ]);
 
 /*
 |--------------------------------------------------------------------------
@@ -82,6 +82,8 @@ $app->singleton(
 // $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register(\Illuminate\Redis\RedisServiceProvider::class);
+$app->register(\App\Packages\Token\TokenServiceProvider::class);
+$app->register(\App\Packages\WeChat\WeChatServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

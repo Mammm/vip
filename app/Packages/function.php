@@ -1,6 +1,6 @@
 <?php
 
-if (! function_exists('httpRequest')) {
+if (!function_exists('httpRequest')) {
     function httpRequest($url, $param, $method = 'GET', $header = [])
     {
         $opts = array(
@@ -33,14 +33,26 @@ if (! function_exists('httpRequest')) {
         $error = curl_error($ch);
         curl_close($ch);
         if ($error)
-            throw new Exception('请求发生错误：'.$error);
+            throw new Exception('请求发生错误：' . $error);
         return $data;
     }
 }
 
-if (! function_exists('jsonResponse')) {
-    function jsonResponse($errorCode, $errorMessage, $data)
+if (!function_exists('jsonResponse')) {
+    /**
+     * 响应
+     * @param $errorCode
+     * @param $data
+     * @return \Illuminate\Http\JsonResponse
+     */
+    function jsonResponse($errorCode, $data = [])
     {
+        $response = [
+            'code' => $errorCode,
+            'msg' => \App\Packages\Response\Error\Message::getErrorMessage($errorCode),
+            'data' => $data
+        ];
 
+        return response()->json($response);
     }
 }

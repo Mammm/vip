@@ -18,6 +18,8 @@ class Message
         $messageList = [
             Code::SUCCESS => '成功',
             Code::FAILED => '失败',
+            Code::INVALID_PARAMETER => '参数异常',
+            Code::REMOTE => '远程服务器异常',
         ];
 
         if (!isset($messageList[$code]))

@@ -19,7 +19,7 @@ class WeChatServiceProvider extends ServiceProvider
     {
         $this->app->configure('wechat-connect');
 
-        $this->app->singleton('WeChatOA', function ($app) {
+        $this->app->singleton('OAWeChat', function ($app) {
             $weChat = new OfficialAccounts();
 
             return $weChat->setAppID($app->config->get('wechat-connect.OA.appid'))

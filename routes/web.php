@@ -24,3 +24,15 @@ $router->get('test/cache', 'TestController@getRedisCache');
 $router->group(['namespace' => 'VIP'], function () use ($router) {
 
 });
+
+$router->group([
+    'namespace' => 'WeChat',
+    'prefix' => 'we-chat'
+], function () use ($route) {
+
+    $route->get('user/authorize', 'UserController@authorize');
+    $route->post('user/access-token', 'UserController@accessToken');
+    $route->get('user/authorize-info', 'UserController@authorizeInfo');
+    $route->get('user/info', 'UserController@info');
+
+});

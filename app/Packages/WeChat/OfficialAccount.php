@@ -12,7 +12,7 @@ use App\Packages\WeChat\API\API;
 use App\Packages\WeChat\API\URL;
 use Illuminate\Support\Facades\Cache;
 
-class OfficialAccounts extends WeChat
+class OfficialAccount extends WeChat
 {
     const REFRESH_TOKEN_EXPIRE_MIN = 2592000;
 

@@ -2,15 +2,16 @@
 namespace App\Http\Controllers;
 
 use App\Packages\Response\Error\Code;
+use App\Packages\WeChat\OfficialAccount;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    private $oaWeChat;
+    private $officialAccount;
 
-    public function __construct()
+    public function __construct(OfficialAccount $officialAccount)
     {
-        $this->oaWeChat = app('OAWeChat');
+        $this->officialAccount = $officialAccount;
     }
 
     /**
@@ -23,7 +24,7 @@ class UserController extends Controller
         $url = $request->input('url', $request->url());
         $scope = $request->input('scope', 'snsapi_userinfo');
 
-        $redirectUrl = $this->oaWeChat->oauth2AuthorizeUrl($url, $scope);
+        $redirectUrl = $this->officialAccount->oauth2AuthorizeUrl($url, $scope);
 
         return redirect($redirectUrl);
     }
@@ -38,7 +39,7 @@ class UserController extends Controller
         if (!$request->has('code'))
             return jsonResponse(Code::INVALID_PARAMETER);
 
-        $result = $this->oaWeChat->oauth2AccessTokenByCode($request->input('code'));
+        $result = $this->officialAccount->oauth2AccessTokenByCode($request->input('code'));
 
         if (!$result)
             return jsonResponse(Code::REMOTE);
@@ -58,12 +59,12 @@ class UserController extends Controller
 
         $openID = $request->input('openID');
 
-        $token = $this->oaWeChat->oauth2AccessTokenByOpenID($openID);
+        $token = $this->officialAccount->oauth2AccessTokenByOpenID($openID);
 
         if (!$token)
             return jsonResponse(Code::REMOTE);
 
-        $userInfo = $this->oaWeChat->oauth2UserInfo($openID, $token);
+        $userInfo = $this->officialAccount->oauth2UserInfo($openID, $token);
 
         if (!$userInfo)
             return jsonResponse(Code::REMOTE);
@@ -81,7 +82,7 @@ class UserController extends Controller
         if (!$request->has('openID'))
             return jsonResponse(Code::INVALID_PARAMETER);
 
-        $userInfo = $this->oaWeChat->userInfo($request->input('openID'));
+        $userInfo = $this->officialAccount->userInfo($request->input('openID'));
 
         if (!$userInfo)
             return jsonResponse(Code::REMOTE);

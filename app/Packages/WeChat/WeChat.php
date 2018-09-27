@@ -6,7 +6,7 @@ namespace App\Packages\WeChat;
 use App\Packages\WeChat\API\API;
 use Illuminate\Support\Facades\Cache;
 
-class WeChat
+abstract class WeChat
 {
     protected $appID;
 

@@ -20,6 +20,7 @@ class Message
             Code::FAILED => '失败',
             Code::INVALID_PARAMETER => '参数异常',
             Code::REMOTE => '远程服务器异常',
+            Code::INVALID_SESSION => '登录超时，请重新登录',
         ];
 
         if (!isset($messageList[$code]))

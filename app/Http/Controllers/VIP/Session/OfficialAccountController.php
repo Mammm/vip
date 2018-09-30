@@ -15,23 +15,8 @@ class OfficialAccountController extends Controller
         $this->officialAccount = $officialAccount;
     }
 
+    //想了下 现在其实不需要维护用户，因为每次H5都是单独的 如果记录下当做用户 每次微信登录难道都要更新用户的头像 名称？
     public function store(Request $request)
     {
-        if (!$request->has('openID'))
-            return jsonResponse(Code::INVALID_PARAMETER);
-
-        $openID = $request->input('openID');
-
-        $token = $this->officialAccount->oauth2AccessTokenByOpenID($openID);
-
-        if (!$token)
-            return jsonResponse(Code::REMOTE);
-
-        $userInfo = $this->officialAccount->oauth2UserInfo($openID, $token);
-
-        if (!$userInfo)
-            return jsonResponse(Code::REMOTE);
-
-
     }
 }

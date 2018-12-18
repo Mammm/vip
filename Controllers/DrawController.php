@@ -55,7 +55,7 @@ class DrawController
 
         $savePath = giveMeASavePath('jpg');
 
-        if (!$this->makeDraw($original, $savePath, $user['nickname'], 'C:/Windows/Fonts/simhei.ttf'))
+        if (!$this->makeDraw($original, $savePath, $user['nickname'], publicPath('SIMHEI.TTF')))
             return jsonResponse(Code::FAILED);
 
         $url = str_replace(ROOT, DOMAIN, $savePath);

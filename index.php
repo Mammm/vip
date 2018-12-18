@@ -13,7 +13,14 @@ require_once 'Response/Error/Message.php';
 $app = new Container();
 
 $app->bind('db', function () {
-    return new DB();
+    $config = [
+        'host' => '',
+        'dbName' => '',
+        'username' => '',
+        'password' => ''
+    ];
+
+    return new DB($config);
 });
 
 $app->bind('redis', function () {

@@ -1,4 +1,5 @@
 <?php
+//看看情况
 const ROOT = __DIR__;
 const DOMAIN = 'http://vip.com';
 

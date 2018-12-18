@@ -1,6 +1,6 @@
 <?php
 const ROOT = __DIR__;
-const DOMAIN = 'http://local.com';
+const DOMAIN = 'http://vip.com';
 
 require_once 'Container.php';
 require_once 'Helper.php';
@@ -18,11 +18,14 @@ $app->bind('db', function () {
 $app->bind('redis', function () {
     $redis = new Redis();
     $redis->connect('127.0.0.1', 6379);
-    return $redis->auth('123456');
+    $redis->auth('123456');
+    return $redis;
 });
 
 $app->bind('wechat', function () {
-   return new WeChat();
+   $wechat = new WeChat();
+   return $wechat->setAppID('wxfc0d50aec0853020')
+       ->setAppSecret('7393999030dc931e3ca8bcd961b38c42');
 });
 
 if (!paramHas($_REQUEST, ['C', 'F']))

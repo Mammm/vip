@@ -21,6 +21,7 @@ class DB
     {
         $dsn = "{$this->database}:host={$this->host};dbname={$this->dbName}";
         $this->single = new PDO($dsn, $this->userName, $this->passWord);
+        $this->single->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
     }
 
     public function beginTransaction()
@@ -40,7 +41,10 @@ class DB
 
     public function query($sql)
     {
-        return ($this->single->query($sql))->fetchAll();
+        if (!$handle = $this->single->query($sql))
+            return [];
+
+        return $handle->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function update($sql)

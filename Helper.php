@@ -23,6 +23,7 @@ if (!function_exists('httpRequest')) {
         /* 根据请求类型设置特定参数 */
         switch (strtoupper($method)) {
             case 'GET':
+                $url = $url.'?'.http_build_query($param);
                 $opts[CURLOPT_URL] = $url;
                 break;
             case 'POST':
@@ -44,6 +45,7 @@ if (!function_exists('httpRequest')) {
         curl_close($ch);
         if ($error)
             throw new Exception('请求发生错误：' . $error);
+
         return $data;
     }
 }
@@ -110,7 +112,7 @@ if (!function_exists('sqlGet')) {
 if (!function_exists('sqlFirst')) {
     function sqlFirst($sql)
     {
-        $result = $this->sqlGet($sql);
+        $result = sqlGet($sql);
 
         return isset($result[0]) ? $result[0] : null;
     }
@@ -140,7 +142,7 @@ if (!function_exists('sqlList')) {
 if (!function_exists('sqlValue')) {
     function sqlValue($sql, $field)
     {
-        $first = $this->sqlFirst($sql);
+        $first = sqlFirst($sql);
 
         return isset($first[$field]) ? $first[$field] : null;
     }
@@ -150,7 +152,7 @@ if (!function_exists('sqlValue')) {
 if (!function_exists('publicPath')) {
     function publicPath($path)
     {
-        return ROOT.'/Public/'.$path;
+        return ROOT.DIRECTORY_SEPARATOR.'Public'.DIRECTORY_SEPARATOR.$path;
     }
 }
 
@@ -159,7 +161,7 @@ if (!function_exists('giveMeASavePath')) {
     {
         $day = date('Ymd');
 
-        $path = publicPath("Uploads/{$day}");
+        $path = publicPath("Uploads".DIRECTORY_SEPARATOR."{$day}");
 
         if (!is_dir($path) && !mkdir($path))
             throw new \Exception('add image path');

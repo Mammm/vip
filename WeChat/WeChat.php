@@ -34,7 +34,6 @@ class WeChat
     {
         $token = $this->cache->get($this->accessTokenCacheKey());
 
-
         if ($token)
             return $token;
 
@@ -44,9 +43,8 @@ class WeChat
             return false;
 
         $token = $response['access_token'];
-        $expireMin = floor((time() + $response['expires_in'] - 300) / 60);
 
-        $this->cache->set($this->accessTokenCacheKey(), $response['access_token'], $expireMin);
+        $this->cache->set($this->accessTokenCacheKey(), $response['access_token'], $response['expires_in']);
 
         return $token;
     }
@@ -125,9 +123,8 @@ class WeChat
         $token = $response['access_token'];
         $refreshToken = $response['refresh_token'];
         $openID = $response['openid'];
-        $expireMin = floor((time() + $response['expires_in'] - 300) / 60);
 
-        $this->cache->set($this->oauth2AccessTokenCacheKey($openID), $token, $expireMin);
+        $this->cache->set($this->oauth2AccessTokenCacheKey($openID), $token, $response['expires_in']);
         $this->cache->set($this->oauth2RefreshTokenCacheKey($openID), $refreshToken, self::REFRESH_TOKEN_EXPIRE_MIN);
 
         return true;

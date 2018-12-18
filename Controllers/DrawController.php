@@ -15,7 +15,6 @@ class DrawController
     {
         if (!paramHas($request, 'openid'))
             return jsonResponse(Code::INVALID_PARAMETER);
-
         $user = $this->findUser($request['openid']);
 
         if ($user)
@@ -61,7 +60,7 @@ class DrawController
 
         $url = str_replace(ROOT, DOMAIN, $savePath);
 
-        $item = $this->addItem($request['openid'], $request['draw_id'], $url);
+        $item = $this->addItem($request['openid'], $request['draw_id'], addslashes($url));
 
         if (!$item)
             return jsonResponse(Code::FAILED);
@@ -84,12 +83,17 @@ NOW(), NOW())");
 
     private function findItem($drawID, $openID)
     {
-        return sqlFirst("select * from vip_h5_draw_item where draw_id = '{$drawID}' and openid = '{$openID}'");
+        return sqlFirst("select * from vip_h5_draw_item where draw_code = '{$drawID}' and openid = '{$openID}'");
     }
 
-    private function drawOriginalPath($ID)
+    private function drawOriginalPath($imageCode)
     {
-        return '';
+        $imagePath = publicPath("Image/Draw/{$imageCode}.jpg");
+
+        if (!file_exists($imagePath))
+            return false;
+
+        return $imagePath;
     }
 
     public function makeDraw($drawOriginal, $savePath, $nickname, $fontFile)

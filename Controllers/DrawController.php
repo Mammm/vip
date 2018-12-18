@@ -7,7 +7,7 @@ class DrawController
 
     public function __construct()
     {
-        $this->wechat = app('wecaht');
+        $this->wechat = app('wechat');
         $this->db = app('db');
     }
 

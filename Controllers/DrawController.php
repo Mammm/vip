@@ -5,9 +5,16 @@ class DrawController
     private $wechat;
     private $db;
 
+    const PACKAGE_DRAW = 'poster_13';
+
+    private $luckyID = [
+        1,
+        3000
+    ];
+
     public function __construct()
     {
-        $this->wechat = app('wecaht');
+        $this->wechat = app('wechat');
         $this->db = app('db');
     }
 
@@ -42,6 +49,9 @@ class DrawController
 
         if (!$user = $this->findUser($request['openid']))
             return jsonResponse(Code::USER_NOT_FOUND);
+
+        if (!in_array($user['id'], $this->luckyID) && $request['draw_id'] == self::PACKAGE_DRAW)
+            return jsonResponse(Code::INVALID_PARAMETER);
 
         $item = $this->findItem($request['draw_id'], $request['openid']);
 

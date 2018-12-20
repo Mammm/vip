@@ -7,4 +7,5 @@ class URL
     const OAUTH2_REFRESH_TOKEN = 'https://api.weixin.qq.com/sns/oauth2/refresh_token';
     const OAUTH2_USER_INFO =  'https://api.weixin.qq.com/sns/userinfo';
     const OA_USER_INFO = 'https://api.weixin.qq.com/cgi-bin/user/info';
+    const GET_TICKET = 'https://api.weixin.qq.com/cgi-bin/ticket/getticket';
 }

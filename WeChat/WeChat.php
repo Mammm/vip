@@ -162,4 +162,28 @@ class WeChat
         return $response;
     }
 
+    public function getTicket($type)
+    {
+        $ticket = $this->cache->get($this->cacheTicketKey($type));
+
+        if ($ticket)
+            return $ticket;
+
+        $token = $this->accessToken();
+
+        $response = API::getTicket($type, $token);
+
+        if (!$response)
+            return false;
+
+        $this->cache->set($this->cacheTicketKey($type), $response['ticket'], $response['expires_in']);
+
+        return $response['ticket'];
+    }
+
+    private function cacheTicketKey($type)
+    {
+        return md5("{$type}-ticket");
+    }
+
 }

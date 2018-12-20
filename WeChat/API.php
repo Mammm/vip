@@ -8,7 +8,7 @@ class API
 
         $apiResponse = json_decode($apiResponse, true);
 
-        if (isset($apiResponse['errcode'])) {
+        if (isset($apiResponse['errcode']) && $apiResponse['errcode'] > 0) {
             //日志;
             return false;
         }
@@ -70,5 +70,15 @@ class API
         ];
 
         return self::response(httpRequest(URL::OA_USER_INFO, $params, 'GET'));
+    }
+
+    static public function getTicket($type, $token)
+    {
+        $params = [
+            'access_token' => $token,
+            'type' => $type
+        ];
+
+        return self::response(httpRequest(URL::GET_TICKET, $params, 'GET'));
     }
 }
